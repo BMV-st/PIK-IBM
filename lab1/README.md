@@ -23,11 +23,7 @@
 
 Программы должны быть разработаны в виде консольного приложения на языке Python. Разработайте **три программы** на языке Python:
 
-- с применением **процедурной парадигмы** (использование функций, оператор `def`);
-- с применением **объектно-ориентированной парадигмы** (использование классов);
-- с применением **функциональной парадигмы** (сопоставление с образцом).
-
-Каждая программа осуществляет ввод с клавиатуры коэффициентов **А, В, С**, вычисляет дискриминант и **ДЕЙСТВИТЕЛЬНЫЕ** корни уравнения (в зависимости от дискриминанта).
+Программа осуществляет ввод с клавиатуры коэффициентов **А, В, С**, вычисляет дискриминант и **ДЕЙСТВИТЕЛЬНЫЕ** корни уравнения (в зависимости от дискриминанта).
 
 Коэффициенты А, В, С могут быть заданы в виде параметров командной строки (вариант задания параметров приведен в конце файла с примером кода). Если они не заданы, то вводятся с клавиатуры в соответствии с пунктом 2. Описание работы с параметрами командной строки.
 
@@ -109,132 +105,7 @@ $ python biquadratic_procedural.py 1 -5 4
 
 ---
 
-## Реализация 2. Объектно-ориентированная парадигма
 
-```python
-# biquadratic_oop.py
-import sys
-import math
-
-
-class Coefficient:
-    """Коэффициент уравнения: имя + значение (может быть не задано)."""
-
-    def __init__(self, name):
-        self.name = name
-        self.value = None
-
-    def try_set(self, raw):
-        try:
-            self.value = float(raw)
-            return True
-        except (TypeError, ValueError):
-            return False
-
-    def is_set(self):
-        return self.value is not None
-
-    def read_from_keyboard(self, forbid_zero=False):
-        while True:
-            raw = input(f"Введите коэффициент {self.name}: ").strip()
-            if not self.try_set(raw):
-                print(f"Ошибка: '{raw}' не является действительным числом.")
-                continue
-            if forbid_zero and self.value == 0:
-                print(f"Коэффициент {self.name} не может быть равен 0.")
-                self.value = None
-                continue
-            return self.value
-
-
-class BiquadraticEquation:
-    """Биквадратное уравнение A*x^4 + B*x^2 + C = 0."""
-
-    def __init__(self, a, b, c):
-        if a == 0:
-            raise ValueError("Коэффициент A не может быть равен 0.")
-        self.a, self.b, self.c = a, b, c
-        self.discriminant = None
-        self.roots = []
-
-    def solve(self):
-        a, b, c = self.a, self.b, self.c
-        self.discriminant = b * b - 4 * a * c
-        D = self.discriminant
-        self.roots = []
-
-        if D < 0:
-            return self.roots
-
-        if D == 0:
-            t_values = [-b / (2 * a)]
-        else:
-            sqrtD = math.sqrt(D)
-            t_values = [(-b + sqrtD) / (2 * a), (-b - sqrtD) / (2 * a)]
-
-        for t in t_values:
-            if t > 0:
-                x = math.sqrt(t)
-                self.roots.extend([-x, x])
-            elif t == 0:
-                self.roots.append(0.0)
-
-        self.roots = sorted(set(round(r, 10) for r in self.roots))
-        return self.roots
-
-    def __str__(self):
-        return f"{self.a}*x^4 + {self.b}*x^2 + {self.c} = 0"
-
-
-class ConsoleApp:
-    """Консольное приложение."""
-
-    def __init__(self, argv):
-        self.argv = argv
-
-    def _parse_args(self):
-        names = ["A", "B", "C"]
-        coefficients = [Coefficient(n) for n in names]
-        for i, arg in enumerate(self.argv[1:4]):
-            coefficients[i].try_set(arg)
-        return coefficients
-
-    def run(self):
-        print("=" * 60)
-        print("Решение биквадратного уравнения: A*x^4 + B*x^2 + C = 0")
-        print("=" * 60)
-
-        a_coef, b_coef, c_coef = self._parse_args()
-
-        if not a_coef.is_set():
-            a_coef.read_from_keyboard()
-        while a_coef.value == 0:
-            print("Коэффициент A не может быть равен 0.")
-            a_coef.value = None
-            a_coef.read_from_keyboard()
-
-        if not b_coef.is_set():
-            b_coef.read_from_keyboard()
-        if not c_coef.is_set():
-            c_coef.read_from_keyboard()
-
-        equation = BiquadraticEquation(a_coef.value, b_coef.value, c_coef.value)
-        equation.solve()
-
-        print(f"\nУравнение: {equation}")
-        print(f"Дискриминант D = {equation.discriminant}")
-
-        if not equation.roots:
-            print("Уравнение не имеет действительных корней.")
-        else:
-            print(f"Найдено действительных корней: {len(equation.roots)}")
-            for i, x in enumerate(equation.roots, 1):
-                print(f"  x{i} = {x}")
-
-
-if __name__ == "__main__":
-    ConsoleApp(sys.argv).run()
-```
 
 **Пример выполнения:**
 
@@ -278,20 +149,6 @@ $ python biquadratic_functional.py abc -5 4
   x3 = 1.0
   x4 = 2.0
 ```
-
----
-
-## Сравнение трёх реализаций
-
-| Аспект | Процедурная | ООП | Функциональная |
-|---|---|---|---|
-| Основная единица | Функция | Класс | Чистая функция + тип-данные |
-| Состояние | В локальных переменных | В полях объекта | Передаётся через аргументы |
-| Ветвление | `if/elif/else` | `if/elif/else` | `match/case` |
-| Изменяемость | Списки | Мутабельные поля | `frozen=True`, кортежи |
-| Разделение I/O и логики | Смешаны | Смешаны в методах | Чистое ядро + грязная оболочка |
-
----
 
 ## Экранные формы (примеры выполнения)
 
