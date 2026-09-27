@@ -72,7 +72,6 @@ def parse_args(argv):
     """
     result = [None, None, None]
     for i, arg in enumerate(argv[1:4]):
-        try:
             result[i] = float(arg)
         except ValueError:
             result[i] = None  # некорректное значение игнорируем
