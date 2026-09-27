@@ -96,9 +96,7 @@ pbcopy < ~/.ssh/id_ed25519.pub
 
 Затем пройдите на [github.com](https://github.com), в правом верхнем углу нажмите по иконке своего профиля, откройте настройки (**Settings**).
 
-<img src="f1.png" alt="Описание" width="500" height="300">
-``` [10](https://stavis-dev.github.io/docusaurus-basics/markdown-syntax/)[2](https://timeweb.cloud/tutorials/css-html/kak-dobavlyat-izobrazheniya-v-markdown)
-
+<img src="f1.png" alt="Описание" width="100" height="500">
 
 Слева в разделе **Access** выберите вкладку **SSH and GPG keys**.
 
