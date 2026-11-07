@@ -24,13 +24,15 @@
 - Написать и проверить свою работу на соответствие минимальным требованиям для сдачи;
 - Залить свою работу в свой репозиторий в GitHub.
 
+## Настройка git [Windows](https://reg.cloud/blog/ustanovka-git-na-windows-instrukciya/?ysclid=mw65wbi24495954192&utm_source=yandex.ru&utm_medium=organic&utm_campaign=reg.cloud&utm_referrer=yandex.ru&utm_content=%2Fblog%2Fustanovka-git-na-windows-instrukciya%2F#3)
+
 ## Настройка ssh-соединения с GitHub
 
 > Данные указания по умолчанию относятся к операционным системам семейства Linux. Если у вас стоит WSL, то все действия следует выполнять в Linux, а не Windows консоли. Для MacOS рядом будут даны отдельные инструкции.
 
 Сначала заведите свой аккаунт на [github.com](https://github.com).
 
-Настройка git [Windows](https://reg.cloud/blog/ustanovka-git-na-windows-instrukciya/?ysclid=mw65wbi24495954192&utm_source=yandex.ru&utm_medium=organic&utm_campaign=reg.cloud&utm_referrer=yandex.ru&utm_content=%2Fblog%2Fustanovka-git-na-windows-instrukciya%2F#3)
+## Настройка git [Windows](https://reg.cloud/blog/ustanovka-git-na-windows-instrukciya/?ysclid=mw65wbi24495954192&utm_source=yandex.ru&utm_medium=organic&utm_campaign=reg.cloud&utm_referrer=yandex.ru&utm_content=%2Fblog%2Fustanovka-git-na-windows-instrukciya%2F#3)
 
 В консоли Linux убедитесь, что у вас стоит **git**. Для этого введите следующую команду:
 
